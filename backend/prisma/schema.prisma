@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum ApplicationStatus {
+  SAVED
+  APPLIED
+  INTERVIEW
+  TECHNICAL_TEST
+  OFFER
+  REJECTED
+}
+
+enum WorkMode {
+  REMOTE
+  HYBRID
+  ONSITE
+}
+
+enum JobType {
+  INTERNSHIP
+  FULL_TIME
+  PART_TIME
+  FREELANCE
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum ApplicationSource {
+  LINKEDIN
+  UPWORK
+  COMPANY_WEBSITE
+  REFERRAL
+  OTHER
+}
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  passwordHash String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  applications Application[]
+}
+
+model Application {
+  id          String             @id @default(cuid())
+  userId      String
+  companyName String
+  jobTitle    String
+  jobLink     String?
+  location    String?
+  workMode    WorkMode
+  jobType     JobType
+  status      ApplicationStatus
+  priority    Priority
+  appliedDate DateTime?
+  deadline    DateTime?
+  source      ApplicationSource
+  salaryRange String?
+  notes       String?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reminders   Reminder[]
+  contacts    Contact[]
+  checklist   DocumentChecklist?
+}
+
+model Reminder {
+  id            String      @id @default(cuid())
+  applicationId String
+  title         String
+  reminderDate  DateTime
+  isDone        Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+}
+
+model Contact {
+  id            String      @id @default(cuid())
+  applicationId String
+  name          String
+  role          String?
+  email         String?
+  linkedinUrl   String?
+  notes         String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+}
+
+model DocumentChecklist {
+  id                    String      @id @default(cuid())
+  applicationId         String      @unique
+  cvSubmitted           Boolean     @default(false)
+  coverLetterSubmitted  Boolean     @default(false)
+  portfolioSubmitted    Boolean     @default(false)
+  githubSubmitted       Boolean     @default(false)
+  notes                 String?
+  application           Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+}
