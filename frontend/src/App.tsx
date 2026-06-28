@@ -1,5 +1,6 @@
-import { ReactElement } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { ReactElement, useEffect, useState } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { PageLoader } from './components/PageLoader';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Layout } from './layout/Layout';
 import { AddApplicationPage } from './pages/AddApplicationPage';
@@ -22,18 +23,52 @@ function AppShell({ children }: { children: ReactElement }) {
 }
 
 export default function App() {
+  const location = useLocation();
+  const [displayLocation, setDisplayLocation] = useState(location);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  useEffect(() => {
+    if (location.key === displayLocation.key) {
+      return;
+    }
+
+    setIsTransitioning(true);
+
+    const swapTimer = window.setTimeout(() => {
+      setDisplayLocation(location);
+    }, 180);
+
+    const hideTimer = window.setTimeout(() => {
+      setIsTransitioning(false);
+    }, 420);
+
+    return () => {
+      window.clearTimeout(swapTimer);
+      window.clearTimeout(hideTimer);
+    };
+  }, [displayLocation.key, location]);
+
   return (
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/" element={<AppShell><DashboardPage /></AppShell>} />
-      <Route path="/applications" element={<AppShell><ApplicationsListPage /></AppShell>} />
-      <Route path="/applications/new" element={<AppShell><AddApplicationPage /></AppShell>} />
-      <Route path="/applications/:id" element={<AppShell><ApplicationDetailsPage /></AppShell>} />
-      <Route path="/applications/:id/edit" element={<AppShell><EditApplicationPage /></AppShell>} />
-      <Route path="/reminders" element={<AppShell><RemindersPage /></AppShell>} />
-      <Route path="/profile" element={<AppShell><ProfilePage /></AppShell>} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+    <div className="relative">
+      <div
+        className={`transition duration-300 ${
+          isTransitioning ? 'pointer-events-none scale-[0.99] opacity-40 blur-[2px]' : 'opacity-100'
+        }`}
+      >
+        <Routes location={displayLocation}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/" element={<AppShell><DashboardPage /></AppShell>} />
+          <Route path="/applications" element={<AppShell><ApplicationsListPage /></AppShell>} />
+          <Route path="/applications/new" element={<AppShell><AddApplicationPage /></AppShell>} />
+          <Route path="/applications/:id" element={<AppShell><ApplicationDetailsPage /></AppShell>} />
+          <Route path="/applications/:id/edit" element={<AppShell><EditApplicationPage /></AppShell>} />
+          <Route path="/reminders" element={<AppShell><RemindersPage /></AppShell>} />
+          <Route path="/profile" element={<AppShell><ProfilePage /></AppShell>} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </div>
+      {isTransitioning ? <PageLoader fullscreen /> : null}
+    </div>
   );
 }

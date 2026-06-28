@@ -1,12 +1,13 @@
 import { ReactElement } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { PageLoader } from './PageLoader';
 
 export function ProtectedRoute({ children }: { children: ReactElement }) {
   const { loading, token } = useAuth();
 
   if (loading) {
-    return <div className="p-8 text-sm text-slate-500">Loading...</div>;
+    return <PageLoader fullscreen label="Restoring your workspace..." />;
   }
 
   if (!token) {

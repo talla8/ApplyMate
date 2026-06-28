@@ -5,17 +5,30 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#faf5ff',
-          100: '#f3e8ff',
-          200: '#e9d5ff',
-          300: '#d8b4fe',
-          400: '#c084fc',
-          500: '#a855f7',
-          600: '#9333ea',
+          50: '#f5fbf5',
+          100: '#e4f4df',
+          200: '#cae7c0',
+          300: '#add89f',
+          400: '#78bb6b',
+          500: '#4f9b46',
+          600: '#2f6f31',
+          700: '#215228',
+        },
+        accent: {
+          50: '#fff7ef',
+          100: '#ffe9d0',
+          200: '#ffd2a8',
+          300: '#ffbb7f',
+          400: '#ff9b4d',
+          500: '#f57d2a',
+        },
+        ink: {
+          900: '#183153',
+          700: '#39516f',
         },
       },
       boxShadow: {
-        soft: '0 20px 45px -30px rgba(91, 33, 182, 0.35)',
+        soft: '0 30px 60px -34px rgba(24, 49, 83, 0.28)',
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
