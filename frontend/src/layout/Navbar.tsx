@@ -13,13 +13,13 @@ export function Navbar() {
   const { logout, user } = useAuth();
 
   return (
-    <div className="rounded-[2rem] border border-brand-100 bg-white/90 p-4 shadow-soft">
+    <div className="school-panel rounded-[2rem] p-4">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-brand-500">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-brand-600">
             ApplyMate
           </p>
-          <p className="text-sm font-semibold text-slate-900">{user?.name}</p>
+          <p className="text-lg font-bold text-ink-900">{user?.name}</p>
         </div>
         <Button variant="secondary" onClick={logout}>
           Logout
@@ -33,7 +33,7 @@ export function Navbar() {
             end={item.to === '/'}
             className={({ isActive }) =>
               `whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold ${
-                isActive ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-slate-600'
+                isActive ? 'bg-ink-900 text-white' : 'bg-brand-50 text-ink-700'
               }`
             }
           >

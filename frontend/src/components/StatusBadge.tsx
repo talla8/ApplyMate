@@ -2,12 +2,12 @@ import { ApplicationStatus } from '../types';
 import { formatEnum } from '../utils/format';
 
 const styles: Record<ApplicationStatus, string> = {
-  SAVED: 'bg-slate-100 text-slate-700',
-  APPLIED: 'bg-sky-100 text-sky-700',
-  INTERVIEW: 'bg-amber-100 text-amber-800',
-  TECHNICAL_TEST: 'bg-orange-100 text-orange-800',
-  OFFER: 'bg-emerald-100 text-emerald-800',
-  REJECTED: 'bg-rose-100 text-rose-700',
+  SAVED: 'bg-brand-100 text-brand-700',
+  APPLIED: 'bg-[#d8ebf8] text-[#2f5f91]',
+  INTERVIEW: 'bg-accent-100 text-accent-500',
+  TECHNICAL_TEST: 'bg-[#ffd9be] text-[#b95f1d]',
+  OFFER: 'bg-[#dff2da] text-brand-700',
+  REJECTED: 'bg-[#fde1dc] text-[#bf5a4a]',
 };
 
 export function StatusBadge({ status }: { status: ApplicationStatus }) {

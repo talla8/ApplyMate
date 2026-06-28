@@ -10,24 +10,32 @@ const navItems = [
 
 export function Sidebar() {
   return (
-    <aside className="hidden w-72 shrink-0 rounded-[2rem] border border-brand-100 bg-white/90 p-6 shadow-soft lg:block">
-      <div className="mb-10">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-500">
+    <aside className="school-panel school-paper hidden w-72 shrink-0 rounded-[2.25rem] p-6 lg:block">
+      <div className="relative mb-10">
+        <div className="mb-6 inline-flex rounded-full bg-accent-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-accent-500">
+          Career studio
+        </div>
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-600">
           ApplyMate
         </p>
-        <h1 className="mt-3 text-2xl font-extrabold text-slate-900">Track every opportunity</h1>
+        <h1 className="mt-3 max-w-[12rem] text-3xl font-extrabold leading-tight text-ink-900">
+          Track every opportunity with clarity
+        </h1>
+        <p className="mt-3 max-w-[14rem] text-sm leading-6 text-ink-700">
+          A simple workflow for applications, follow-ups, and notes that need attention.
+        </p>
       </div>
-      <nav className="space-y-2">
+      <nav className="relative space-y-3">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             end={item.to === '/'}
             className={({ isActive }) =>
-              `block rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+              `block rounded-[1.4rem] px-4 py-3 text-sm font-semibold transition ${
                 isActive
-                  ? 'bg-brand-100 text-brand-700'
-                  : 'text-slate-600 hover:bg-brand-50 hover:text-brand-700'
+                  ? 'bg-ink-900 text-white shadow-soft'
+                  : 'bg-white/60 text-ink-700 hover:bg-brand-50 hover:text-ink-900'
               }`
             }
           >

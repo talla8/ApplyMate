@@ -26,12 +26,32 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-[2rem] border border-brand-100 bg-white p-6 shadow-soft">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-500">Dashboard</p>
-        <h2 className="mt-3 text-3xl font-extrabold text-slate-900">Welcome back, {user?.name}</h2>
-        <p className="mt-2 text-sm text-slate-500">
-          Keep momentum by reviewing recent applications and the next follow-ups due.
-        </p>
+      <section className="school-panel school-paper rounded-[2.25rem] p-6 md:p-8">
+        <div className="relative z-10 grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-600">Dashboard</p>
+            <h2 className="mt-3 max-w-xl text-3xl font-extrabold leading-tight text-ink-900 md:text-4xl">
+              Welcome back, {user?.name}
+            </h2>
+            <p className="mt-3 max-w-lg text-sm leading-7 text-ink-700">
+              Keep momentum by reviewing recent applications, the next follow-ups due, and the parts of your search that need attention now.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-[1.75rem] bg-ink-900 p-5 text-white">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">Current pace</p>
+              <p className="mt-3 text-4xl font-extrabold">{cards?.totalApplications ?? 0}</p>
+              <p className="mt-2 text-sm text-white/80">applications tracked so far</p>
+            </div>
+            <div className="rounded-[1.75rem] bg-accent-100 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-500">Next step</p>
+              <p className="mt-3 text-4xl font-extrabold text-ink-900">
+                {summary?.upcomingFollowUps.length ?? 0}
+              </p>
+              <p className="mt-2 text-sm text-ink-700">follow-ups currently queued</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {error ? <p className="text-sm text-rose-500">{error}</p> : null}
@@ -45,16 +65,16 @@ export function DashboardPage() {
           ['Offers', cards?.offers ?? 0],
           ['Saved opportunities', cards?.savedOpportunities ?? 0],
         ].map(([label, value]) => (
-          <div key={label} className="rounded-[2rem] border border-brand-100 bg-white p-5 shadow-soft">
-            <p className="text-sm text-slate-500">{label}</p>
-            <p className="mt-3 text-3xl font-extrabold text-slate-900">{value}</p>
+          <div key={label} className="school-panel rounded-[2rem] p-5">
+            <p className="text-sm text-ink-700">{label}</p>
+            <p className="mt-3 text-3xl font-extrabold text-ink-900">{value}</p>
           </div>
         ))}
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
         <div className="space-y-4">
-          <h3 className="text-lg font-bold text-slate-900">Recent applications</h3>
+          <h3 className="text-lg font-bold text-ink-900">Recent applications</h3>
           {summary?.recentApplications.length ? (
             summary.recentApplications.map((application) => (
               <ApplicationCard key={application.id} application={application} />
@@ -64,14 +84,14 @@ export function DashboardPage() {
           )}
         </div>
         <div className="space-y-6">
-          <div className="rounded-[2rem] border border-brand-100 bg-white p-5 shadow-soft">
-            <h3 className="text-lg font-bold text-slate-900">Upcoming follow-ups</h3>
+          <div className="school-panel rounded-[2rem] p-5">
+            <h3 className="text-lg font-bold text-ink-900">Upcoming follow-ups</h3>
             <div className="mt-4 space-y-3">
               {summary?.upcomingFollowUps.length ? (
                 summary.upcomingFollowUps.map((reminder) => (
-                  <div key={reminder.id} className="rounded-2xl bg-brand-50 p-4">
-                    <p className="font-semibold text-slate-900">{reminder.title}</p>
-                    <p className="text-sm text-slate-500">
+                  <div key={reminder.id} className="rounded-[1.5rem] bg-brand-50 p-4">
+                    <p className="font-semibold text-ink-900">{reminder.title}</p>
+                    <p className="text-sm text-ink-700">
                       {reminder.application?.companyName} • {formatDate(reminder.reminderDate)}
                     </p>
                   </div>
@@ -82,14 +102,14 @@ export function DashboardPage() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-brand-100 bg-white p-5 shadow-soft">
-            <h3 className="text-lg font-bold text-slate-900">Applications by status</h3>
+          <div className="school-panel rounded-[2rem] p-5">
+            <h3 className="text-lg font-bold text-ink-900">Applications by status</h3>
             <div className="mt-4 space-y-3">
               {summary?.applicationsByStatus.length ? (
                 summary.applicationsByStatus.map((item) => (
                   <div key={item.status} className="flex items-center justify-between">
                     <StatusBadge status={item.status} />
-                    <span className="text-sm font-semibold text-slate-700">{item.count}</span>
+                    <span className="text-sm font-semibold text-ink-700">{item.count}</span>
                   </div>
                 ))
               ) : (
