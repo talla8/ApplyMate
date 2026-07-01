@@ -19,6 +19,28 @@ ApplyMate is a junior-friendly job application tracking platform. It helps devel
 - Documents checklist per application
 - Demo seed data for local development
 
+## Screenshots
+
+### Dashboard
+
+![ApplyMate dashboard](docs/screenshots/dashboard-summary.png)
+
+### Applications List
+
+![ApplyMate applications list](docs/screenshots/applications-list.png)
+
+### Add Application
+
+![ApplyMate add application form](docs/screenshots/add-application-form.png)
+
+### Reminders
+
+![ApplyMate reminders page](docs/screenshots/reminders-page.png)
+
+### Profile
+
+![ApplyMate profile page](docs/screenshots/profile-page.png)
+
 ## Project Structure
 
 ```text
